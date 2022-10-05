@@ -12,26 +12,26 @@ string BigDecimalInt::validate_str(string& str1){
 BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
         
     // anotherDec.digits = the longest number
-    if (anotherDec.digits.size() > digits.size()){
+    if (digits.size() > anotherDec.digits.size()){
         swap(digits,anotherDec.digits);
     }
 
-    int j = anotherDec.digits.size() - 1;
-    for (size_t i = digits.size() - 1; i >= 0 && j >= 0; i--, j--)
+    int j = digits.size() - 1;
+    for (size_t i = anotherDec.digits.size() - 1; i >= 0 && j >= 0; i--, j--)
     {
         // tmp = the sum of the two numbers
-        int tmp = (digits[i]-'0') + (anotherDec.digits[j]-'0');
+        int tmp = (anotherDec.digits[i]-'0') + (digits[j]-'0');
 
         // store last digit of tmp in the longest number
-        digits[i] = ((tmp % 10) + '0');
+        anotherDec.digits[i] = ((tmp % 10) + '0');
 
         if(tmp > 9){
             // add one to the prev digit
-            digits[i-1] = ((digits[i-1]-'0') + 1) + '0';
+            anotherDec.digits[i-1] = ((anotherDec.digits[i-1]-'0') + 1) + '0';
         } 
     }
     // return the longest number
-    return digits;
+    return anotherDec;
 }
 
 
