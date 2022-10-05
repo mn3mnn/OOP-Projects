@@ -4,7 +4,9 @@
 
 #include "BigDecimalInt.h"
 
+
 string BigDecimalInt::validate_str(string& str1){
+
     return str1;
 }
 
@@ -35,7 +37,34 @@ BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
 }
 
 
+
 BigDecimalInt BigDecimalInt::operator- (BigDecimalInt anotherDec){
+    // anotherDec.digits = the longest number
+    if (digits.size() > anotherDec.digits.size())
+    {
+        swap(digits,anotherDec.digits);
+    }
+
+    int j = digits.size() - 1;
+    for (size_t i = anotherDec.digits.size() - 1; i >= 0 && j >=0; i--, j--)
+    {
+        // tmp = difference between the two digits
+        int tmp = (anotherDec.digits[i]-'0') - (digits[j]-'0');
+
+        // if the difference is positive
+        if (tmp < 0){
+            // borrow one from the prev digit
+            anotherDec.digits[i - 1] = ((anotherDec.digits[i - 1]-'0') - 1) + '0';
+            // tmp2 = 10 + the small digit
+            int tmp2 = ((anotherDec.digits[i]-'0') + 10);
+            // store the difference in curr digit in the longest number
+            anotherDec.digits[i] = (tmp2 - (digits[j]-'0')) + '0';
+        }
+        else{
+            // if the difference is positive
+            anotherDec.digits[i] = (tmp + '0');
+        }
+    }
     return anotherDec;
 }
 
