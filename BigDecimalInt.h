@@ -34,7 +34,10 @@ public:
     int size();
     int sign();
 
-    friend ostream& operator << (ostream& out, BigDecimalInt b);
+   friend ostream& BigDecimalInt::operator<< (ostream& out, BigDecimalInt num){
+        out << num.digits;
+        return out;
+    }
 
 };
 
