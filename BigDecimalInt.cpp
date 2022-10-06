@@ -6,17 +6,17 @@
 
 
 string BigDecimalInt::validate_str(string str1){
-
-        // Chech the string have any Letters 
-        for (size_t i = str1.size() - 1 ; i <= 0; i--)
-        {
-            if (str1[i] > '9' || str1[i] < '0'){
-                cout<<"Your BigDecimalInt is unvalid\nPlease check your BigDecimalInt and be careful when you enter it not to try again.";
-                return 0;
-            }
+    // Check if the string has any Letters
+    for (size_t i = str1.size() - 1 ; i >= 0; i--)
+    {
+        if (str1[i] > '9' || str1[i] < '0'){
+            cout << "invalid input.\n";
+            return "";
         }
-    return str1;
     }
+    return str1;
+}
+
 
 
 BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
@@ -43,7 +43,6 @@ BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
     // return the longest number
     return anotherDec;
 }
-
 
 
 BigDecimalInt BigDecimalInt::operator- (BigDecimalInt anotherDec){
