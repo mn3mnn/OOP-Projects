@@ -5,10 +5,18 @@
 #include "BigDecimalInt.h"
 
 
-string BigDecimalInt::validate_str(string& str1){
+string BigDecimalInt::validate_str(string str1){
 
+        // Chech the string have any Letters 
+        for (size_t i = str1.size() - 1 ; i <= 0; i--)
+        {
+            if (str1[i] > '9' || str1[i] < '0'){
+                cout<<"Your BigDecimalInt is unvalid\nPlease check your BigDecimalInt and be careful when you enter it not to try again.";
+                return 0;
+            }
+        }
     return str1;
-}
+    }
 
 
 BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){

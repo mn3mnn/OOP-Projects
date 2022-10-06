@@ -5,6 +5,7 @@
 #ifndef A1_TASK1_BIGDECIMALINT_H
 #define A1_TASK1_BIGDECIMALINT_H
 #include <string>
+#include<iostream>
 
 using namespace std;
 
@@ -20,7 +21,7 @@ public:
     BigDecimalInt(int& decInt) : digits(to_string(decInt)) {}
 
     // take valid bigInt string
-    string validate_str(string& str1);
+    string validate_str(string str1);
 
     // operators overloading
     BigDecimalInt operator+ (BigDecimalInt anotherDec);
