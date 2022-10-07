@@ -23,6 +23,10 @@ public:
     // take valid bigInt string
     string validate_str(string str1);
 
+    // function cases of operator+
+    void num1PlusNum2(BigDecimalInt &anotherDec);
+    void num1MinusNum2(BigDecimalInt &anotherDec);
+
     // operators overloading
     BigDecimalInt operator+ (BigDecimalInt anotherDec);
     BigDecimalInt operator- (BigDecimalInt anotherDec);
@@ -33,12 +37,9 @@ public:
     bool operator==(BigDecimalInt anotherDec);
 
     int size();
-    bool BigDecimalInt::signPositive(string temp_str);
+    bool signPositive(string temp_str);
 
-   friend ostream& BigDecimalInt::operator<< (ostream& out, BigDecimalInt num){
-        out << num.digits;
-        return out;
-    }
+   friend ostream& operator<< (ostream& out, BigDecimalInt num);
 
 };
 
