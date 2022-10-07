@@ -5,6 +5,8 @@
 #ifndef A1_TASK1_BIGDECIMALINT_H
 #define A1_TASK1_BIGDECIMALINT_H
 #include <string>
+#include <cstring>
+#include <bits/stdc++.h>
 #include<iostream>
 
 using namespace std;
