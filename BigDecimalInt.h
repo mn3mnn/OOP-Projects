@@ -33,7 +33,7 @@ public:
     bool operator==(BigDecimalInt anotherDec);
 
     int size();
-    int sign();
+    bool BigDecimalInt::signPositive(string temp_str);
 
    friend ostream& BigDecimalInt::operator<< (ostream& out, BigDecimalInt num){
         out << num.digits;

@@ -105,9 +105,10 @@ int BigDecimalInt::size() {
 }
 
 
-int BigDecimalInt::sign() {
-    return 1;
-}
+bool BigDecimalInt::signPositive(string temp_str){
+        if(temp_str[0] == '-'){return false;}
+        else {return true;}
+    }
 
 
 
