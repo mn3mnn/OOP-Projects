@@ -36,6 +36,7 @@ BigDecimalInt BigDecimalInt::pos_plus_pos(BigDecimalInt& anotherDec){
     for (size_t i = anotherDec.digits.size() - 1; i >= 0 && j >= 0; i--, j--)
     {
         // tmp = the sum of the two digits
+
         int tmp = (anotherDec.digits[i]-'0') + (tmp_dig[j]-'0');
 
         // store last digit of tmp in the longest number (the result)
@@ -81,6 +82,7 @@ BigDecimalInt BigDecimalInt::pos_minus_pos(BigDecimalInt& anotherDec){
             int k = i - 1;
             while (anotherDec.digits[k] == '0'){
                 // if we borrow 1 from digit that is equal to zero, make it 9 and borrow 1 from the prev digit
+
                 anotherDec.digits[k] = (anotherDec.digits[k] == '0' ? '9' : anotherDec.digits[k]--);
                 k--;
             }
@@ -188,6 +190,7 @@ bool BigDecimalInt::operator> (BigDecimalInt anotherDec){
 bool BigDecimalInt::operator== (BigDecimalInt anotherDec){
     return true;
 }
+
 
 
 //-------------------------------------------------------------------------------------------------------------------//

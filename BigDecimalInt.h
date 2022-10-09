@@ -5,6 +5,7 @@
 #ifndef A1_TASK1_BIGDECIMALINT_H
 #define A1_TASK1_BIGDECIMALINT_H
 #include <string>
+
 #include <regex>
 #include <iostream>
 
@@ -45,6 +46,7 @@ public:
     bool operator< (BigDecimalInt anotherDec);
     bool operator> (BigDecimalInt anotherDec);
     bool operator==(BigDecimalInt anotherDec);
+
 
     friend ostream& operator<< (ostream& out, BigDecimalInt num){
         out << num.digits;
