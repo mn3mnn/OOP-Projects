@@ -5,22 +5,37 @@
 #ifndef A1_TASK1_BIGDECIMALINT_H
 #define A1_TASK1_BIGDECIMALINT_H
 #include <string>
+#include <regex>
+#include <iostream>
 
 using namespace std;
 
 
 class BigDecimalInt {
     string digits;
+    bool is_valid_num(string& str1);
+    BigDecimalInt pos_plus_pos(BigDecimalInt& anotherDec);
+    BigDecimalInt pos_minus_pos(BigDecimalInt& anotherDec);
 
 public:
-    // constructors
-    BigDecimalInt(string& decStr){
-        digits = validate_str(decStr);
-    }
-    BigDecimalInt(int& decInt) : digits(to_string(decInt)) {}
 
-    // take valid bigInt string
-    string validate_str(string& str1);
+    // constructors
+    BigDecimalInt(string decStr){
+        if (is_valid_num(decStr)){
+            digits = decStr;
+        }
+        else{
+            std::cout << "invalid number";
+            exit(1);
+        }
+    }
+    BigDecimalInt(int decInt) : digits(to_string(decInt)) {}
+
+
+    // methods
+    int size();
+    int sign();
+
 
     // operators overloading
     BigDecimalInt operator+ (BigDecimalInt anotherDec);
@@ -31,10 +46,7 @@ public:
     bool operator> (BigDecimalInt anotherDec);
     bool operator==(BigDecimalInt anotherDec);
 
-    int size();
-    int sign();
-
-   friend ostream& BigDecimalInt::operator<< (ostream& out, BigDecimalInt num){
+    friend ostream& operator<< (ostream& out, BigDecimalInt num){
         out << num.digits;
         return out;
     }
