@@ -16,7 +16,7 @@ class BigDecimalInt {
     string digits;
     bool is_valid_num(string& str1);
     bool is_positive(string digits);
-    BigDecimalInt pos_plus_pos(BigDecimalInt& anotherDec);
+    BigDecimalInt pos_plus_pos(BigDecimalInt anotherDec);
     BigDecimalInt pos_minus_pos(BigDecimalInt anotherDec);
 
 public:
@@ -31,11 +31,12 @@ public:
         }
     }
     BigDecimalInt(long long decInt) : digits(to_string(decInt)) {}
+    BigDecimalInt(int decInt) : digits(to_string(decInt)) {}
 
 
     // methods
-    int size(BigDecimalInt test);
-    string sign(BigDecimalInt testForSign);
+    int size();
+    string sign();
 
 
     // operators overloading

@@ -23,15 +23,24 @@ bool BigDecimalInt::is_positive(string digits){
 
 
 // return the sum of two positive nums
-BigDecimalInt BigDecimalInt::pos_plus_pos(BigDecimalInt& anotherDec){
+BigDecimalInt BigDecimalInt::pos_plus_pos(BigDecimalInt anotherDec){
+
     // store this->digits in tmp_dig
     string tmp_dig = digits;
+
+    if (anotherDec.digits[0] == '+'){
+        anotherDec.digits.erase(0, 1);
+    }
+    if (tmp_dig[0] == '+'){
+        tmp_dig.erase(0, 1);
+    }
 
     // make anotherDec.digits = the longest number (the result)
     if (tmp_dig.size() > anotherDec.digits.size()){
         swap(tmp_dig,anotherDec.digits);
     }
 
+    // addition
     int j = tmp_dig.size() - 1;
     for (size_t i = anotherDec.digits.size() - 1; i >= 0 && j >= 0; i--, j--)
     {
@@ -64,8 +73,16 @@ BigDecimalInt BigDecimalInt::pos_minus_pos(BigDecimalInt anotherDec){
     // store this->digits in tmp_dig
     string tmp_dig = digits;
 
+    if (anotherDec.digits[0] == '+'){
+        anotherDec.digits.erase(0, 1);
+    }
+    if (tmp_dig[0] == '+'){
+        tmp_dig.erase(0, 1);
+    }
+
     // make anotherDec.digits = the greater number (the result)
-    if (stoull(anotherDec.digits) < stoull(tmp_dig)){
+    //------------------------------------------------------------------------------------------===============
+    if (anotherDec < *this){
         swap(tmp_dig,anotherDec.digits);
     }
 
@@ -97,10 +114,14 @@ BigDecimalInt BigDecimalInt::pos_minus_pos(BigDecimalInt anotherDec){
             anotherDec.digits[i] = (tmp + '0');
         }
     }
+
     // remove zeros to the left
     int i = 0;
-    while (anotherDec.digits[i++] == '0'){
-        anotherDec.digits.erase(0, 1);
+    while (anotherDec.digits[i++] == '0');
+    anotherDec.digits.erase(0, i - 1);
+
+    if (anotherDec.digits == ""){
+        anotherDec.digits.insert(0, 1, '0');
     }
 
     return anotherDec;
@@ -141,7 +162,7 @@ BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
     else if (is_positive(digits) && !is_positive(anotherDec.digits)){
         // anotherDec.digits = the difference between the two nums
         // add the sign of the greater number (abs value)  to the result (anotherDec.digits)
-        char sign = (abs(stoll(anotherDec.digits)) > abs(stoll(digits)) ? anotherDec.digits[0] : digits[0]);
+        char sign = (anotherDec > *this ? anotherDec.digits[0] : digits[0]);
         anotherDec.digits.erase(0, 1);
         anotherDec = pos_minus_pos(anotherDec);
         if (sign == '-' && anotherDec.digits != "0"){
@@ -153,7 +174,7 @@ BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
     else if (!is_positive(digits) && is_positive(anotherDec.digits)){
         // anotherDec.digits = the difference between the two nums
         // add the sign of the greater number to the result (anotherDec.digits)
-        char sign = (abs(stoll(anotherDec.digits)) > abs(stoll(digits)) ? anotherDec.digits[0] : digits[0]);
+        char sign = (anotherDec > *this ? anotherDec.digits[0] : digits[0]);
         digits.erase(0, 1);
         anotherDec = pos_minus_pos(anotherDec);
         if (sign == '-' && anotherDec.digits != "0"){
@@ -169,6 +190,49 @@ BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
 
 BigDecimalInt BigDecimalInt::operator- (BigDecimalInt anotherDec){
 
+    // if pos - pos
+    if (is_positive(digits) && is_positive(anotherDec.digits)){
+
+        // remove +ve sign if it's found
+        if (digits[0] == '+'){
+            digits.erase(0, 1);
+        }
+        if (anotherDec.digits[0] == '+'){
+            anotherDec.digits.erase(0, 1);
+        }
+
+        // if greater - smaller
+        if (*this > anotherDec || *this == anotherDec){
+            // get the difference between the 2 nums
+            anotherDec = pos_minus_pos(anotherDec);
+        }
+        // if smaller - greater
+        else{
+            // get the difference between the 2 nums and add the -ve sign
+            anotherDec = pos_minus_pos(anotherDec);
+            anotherDec.digits.insert(0, 1, '-');
+        }
+    }
+    // if negative - negative
+    else if(!is_positive(digits) && !is_positive(anotherDec.digits)){
+        anotherDec.digits.erase(0, 1);
+        anotherDec = *this + anotherDec;
+    }
+    // if negative - pos
+    else if (!is_positive(digits) && is_positive(anotherDec.digits)){
+        // remove -ve sign, add it later
+        // add the 2 nums and insert -ve sign
+        digits.erase(0, 1);
+        anotherDec = pos_plus_pos(anotherDec);
+        anotherDec.digits.insert(0, 1, '-');
+        digits.insert(0, 1, '-');
+    }
+    // if pos - negative
+    else if(is_positive(digits) && !is_positive(anotherDec.digits)){
+        anotherDec.digits.erase(0, 1);
+        anotherDec = pos_plus_pos(anotherDec);
+    }
+
     return anotherDec;
 }
 
@@ -178,7 +242,7 @@ BigDecimalInt BigDecimalInt::operator- (BigDecimalInt anotherDec){
 
 BigDecimalInt BigDecimalInt::operator= (BigDecimalInt anotherDec){
     digits = anotherDec.digits;
-    return digits;
+    return *this;
 }
 
 
@@ -242,17 +306,21 @@ bool BigDecimalInt::operator== (BigDecimalInt anotherDec){
 //-------------------------------------------------------------------------------------------------------------------//
 
 
-int BigDecimalInt::size(BigDecimalInt test) {
-    string str_tmp = test.digits;
-    return str_tmp.size();
+// return n of digits
+int BigDecimalInt::size() {
+    return (this->digits[0] == '-' || this->digits[0] == '+' ? this->digits.size() - 1 : this->digits.size());
 }
 
 
 //-------------------------------------------------------------------------------------------------------------------//
 
-string BigDecimalInt::sign(BigDecimalInt testForSign){
-    string str_temp = testForSign.digits;
-    if(str_temp[0] == '-'){return "Signed Negative";}
-    else {return "Signed Positive";}
+
+string BigDecimalInt::sign(){
+    if(this->digits[0] == '-'){
+        return "-";
+    }
+    else {
+        return "+";
+    }
 }
 
