@@ -30,7 +30,7 @@ public:
             exit(1);
         }
     }
-    BigDecimalInt(int decInt) : digits(to_string(decInt)) {}
+    BigDecimalInt(long long decInt) : digits(to_string(decInt)) {}
 
 
     // methods

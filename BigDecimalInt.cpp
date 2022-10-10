@@ -225,9 +225,6 @@ bool BigDecimalInt::operator== (BigDecimalInt anotherDec){
     if (strcmp(anotherDec.digits.c_str(), digits.c_str()) == 0) {
         return true;
     }
-	else {
-		return false;
-	}
     return false;
 }
 
