@@ -15,11 +15,11 @@ using namespace std;
 class BigDecimalInt {
     string digits;
     bool is_valid_num(string& str1);
+    bool is_positive(string digits);
     BigDecimalInt pos_plus_pos(BigDecimalInt& anotherDec);
     BigDecimalInt pos_minus_pos(BigDecimalInt& anotherDec);
 
 public:
-
     // constructors
     BigDecimalInt(string decStr){
         if (is_valid_num(decStr)){
@@ -34,8 +34,8 @@ public:
 
 
     // methods
-    int size();
-    int sign();
+    int size(BigDecimalInt test);
+    string sign(BigDecimalInt testForSign);
 
 
     // operators overloading

@@ -15,7 +15,7 @@ bool BigDecimalInt::is_valid_num(string& str1){
 }
 
 
-bool is_positive(string digits){
+bool BigDecimalInt::is_positive(string digits){
     return digits[0] != '-';
 }
 
@@ -61,13 +61,6 @@ BigDecimalInt BigDecimalInt::pos_plus_pos(BigDecimalInt& anotherDec){
 // return the abs value of the difference between two pos numbers
 BigDecimalInt BigDecimalInt::pos_minus_pos(BigDecimalInt& anotherDec){
 
-    // anotherDec.digits = the longest number
-//    if (digits.size() > anotherDec.digits.size())
-//    {
-//        swap(digits,anotherDec.digits);
-//    }
-
-
     // anotherDec.digits =  the 'greatest' number
     anotherDec.digits = (stoull(anotherDec.digits) > stoull(digits) ? anotherDec.digits : digits);
 
@@ -111,7 +104,7 @@ BigDecimalInt BigDecimalInt::pos_minus_pos(BigDecimalInt& anotherDec){
 
 
 BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
-    //
+    
     // if pos + pos
     if (is_positive(digits) && is_positive(anotherDec.digits)){
         // remove +ve sign if it's found
@@ -124,7 +117,7 @@ BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
         // add the two nums
         anotherDec = pos_plus_pos(anotherDec);
     }
-    //
+    
     // if negative + negative
     else if(!is_positive(digits) && !is_positive(anotherDec.digits)){
         // remove -ve sign
@@ -135,9 +128,8 @@ BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
         // add -ve sign to the result
         anotherDec.digits.insert(0, 1, '-');
     }
-    //
+
     // if we add numbers with different signs
-    //
     else if (is_positive(digits) && !is_positive(anotherDec.digits)){
         // anotherDec.digits = the difference between the two nums
         // add the sign of the greater number (abs value)  to the result (anotherDec.digits)
@@ -148,6 +140,8 @@ BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
             anotherDec.digits.insert(0, 1, '-');
         }
     }
+
+    // if we add numbers with different signs
     else if (!is_positive(digits) && is_positive(anotherDec.digits)){
         // anotherDec.digits = the difference between the two nums
         // add the sign of the greater number to the result (anotherDec.digits)
@@ -195,10 +189,7 @@ bool BigDecimalInt::operator< (BigDecimalInt anotherDec){
 		else if (COMP > 0){
             return false;   //string 1 is bigger
         }
-	}	
-    // else if () {
-	// 	"for - and +"
-	// }
+	}
     return false;
 }
 
@@ -221,10 +212,7 @@ bool BigDecimalInt::operator> (BigDecimalInt anotherDec){
 		else if (COMP > 0){
             return true;   
         }
-	}	
-    // else if () {
-	// 	"for - and +"
-	// }
+	}
     return false;
 }
 
@@ -246,16 +234,16 @@ bool BigDecimalInt::operator== (BigDecimalInt anotherDec){
 //-------------------------------------------------------------------------------------------------------------------//
 
 
-int BigDecimalInt::size() {
-    return digits.size();
+int BigDecimalInt::size(BigDecimalInt test) {
+    string str_tmp = test.digits;
+    return str_tmp.size();
 }
 
 
 //-------------------------------------------------------------------------------------------------------------------//
 
-
-int BigDecimalInt::sign() {
-    return 0;
+string BigDecimalInt::sign(BigDecimalInt testForSign){
+    string str_temp = testForSign.digits;
+    if(str_temp[0] == '-'){return "Signed Negative";}
+    else {return "Signed Positive";}
 }
-
-
