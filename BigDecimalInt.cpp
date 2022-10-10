@@ -59,16 +59,21 @@ BigDecimalInt BigDecimalInt::pos_plus_pos(BigDecimalInt& anotherDec){
 
 
 // return the abs value of the difference between two pos numbers
-BigDecimalInt BigDecimalInt::pos_minus_pos(BigDecimalInt& anotherDec){
+BigDecimalInt BigDecimalInt::pos_minus_pos(BigDecimalInt anotherDec){
 
-    // anotherDec.digits =  the 'greatest' number
-    anotherDec.digits = (stoull(anotherDec.digits) > stoull(digits) ? anotherDec.digits : digits);
+    // store this->digits in tmp_dig
+    string tmp_dig = digits;
 
-    int j = digits.size() - 1;
+    // make anotherDec.digits = the greater number (the result)
+    if (stoull(anotherDec.digits) < stoull(tmp_dig)){
+        swap(tmp_dig,anotherDec.digits);
+    }
+
+    int j = tmp_dig.size() - 1;
     for (size_t i = anotherDec.digits.size() - 1; i >= 0 && j >=0; i--, j--)
     {
         // tmp = difference between the two digits
-        int tmp = (anotherDec.digits[i]-'0') - (digits[j]-'0');
+        int tmp = (anotherDec.digits[i]-'0') - (tmp_dig[j]-'0');
 
         // if the difference is positive
         if (tmp < 0){
@@ -85,7 +90,7 @@ BigDecimalInt BigDecimalInt::pos_minus_pos(BigDecimalInt& anotherDec){
             // tmp2 = 10 + the small digit
             int tmp2 = ((anotherDec.digits[i]-'0') + 10);
             // store the difference in curr digit in the longest number
-            anotherDec.digits[i] = (tmp2 - (digits[j]-'0')) + '0';
+            anotherDec.digits[i] = (tmp2 - (tmp_dig[j]-'0')) + '0';
         }
         else{
             // if the difference is positive
@@ -97,6 +102,7 @@ BigDecimalInt BigDecimalInt::pos_minus_pos(BigDecimalInt& anotherDec){
     while (anotherDec.digits[i++] == '0'){
         anotherDec.digits.erase(0, 1);
     }
+
     return anotherDec;
 }
 
@@ -104,7 +110,7 @@ BigDecimalInt BigDecimalInt::pos_minus_pos(BigDecimalInt& anotherDec){
 
 
 BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
-    
+
     // if pos + pos
     if (is_positive(digits) && is_positive(anotherDec.digits)){
         // remove +ve sign if it's found
@@ -167,6 +173,7 @@ BigDecimalInt BigDecimalInt::operator- (BigDecimalInt anotherDec){
 
 
 BigDecimalInt BigDecimalInt::operator= (BigDecimalInt anotherDec){
+    digits = anotherDec.digits;
     return *this;
 }
 
@@ -247,3 +254,4 @@ string BigDecimalInt::sign(BigDecimalInt testForSign){
     if(str_temp[0] == '-'){return "Signed Negative";}
     else {return "Signed Positive";}
 }
+

@@ -17,7 +17,7 @@ class BigDecimalInt {
     bool is_valid_num(string& str1);
     bool is_positive(string digits);
     BigDecimalInt pos_plus_pos(BigDecimalInt& anotherDec);
-    BigDecimalInt pos_minus_pos(BigDecimalInt& anotherDec);
+    BigDecimalInt pos_minus_pos(BigDecimalInt anotherDec);
 
 public:
     // constructors
