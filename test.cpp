@@ -1,5 +1,6 @@
-#include <iostream>
 #include "BigDecimalInt.h"
+#include "BigDecimalInt.cpp"
+
 
 using namespace std;
 

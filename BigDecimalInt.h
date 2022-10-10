@@ -31,7 +31,6 @@ public:
         }
     }
     BigDecimalInt(long long decInt) : digits(to_string(decInt)) {}
-    BigDecimalInt(int decInt) : digits(to_string(decInt)) {}
 
 
     // methods
