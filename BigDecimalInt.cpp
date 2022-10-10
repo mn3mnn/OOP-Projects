@@ -167,7 +167,8 @@ BigDecimalInt BigDecimalInt::operator- (BigDecimalInt anotherDec){
 
 
 BigDecimalInt BigDecimalInt::operator= (BigDecimalInt anotherDec){
-    return *this;
+    digits = anotherDec.digits;
+    return digits;
 }
 
 
