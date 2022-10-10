@@ -133,6 +133,8 @@ BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
         anotherDec = pos_plus_pos(anotherDec);
         // add -ve sign to the result
         anotherDec.digits.insert(0, 1, '-');
+        // add the - sign again
+        digits.insert(0, 1, '-');
     }
 
     // if we add numbers with different signs
@@ -157,6 +159,8 @@ BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
         if (sign == '-' && anotherDec.digits != "0"){
             anotherDec.digits.insert(0, 1, '-');
         }
+        // add the - sign again
+        digits.insert(0, 1, '-');
     }
 
     return anotherDec;
@@ -174,7 +178,7 @@ BigDecimalInt BigDecimalInt::operator- (BigDecimalInt anotherDec){
 
 BigDecimalInt BigDecimalInt::operator= (BigDecimalInt anotherDec){
     digits = anotherDec.digits;
-    return *this;
+    return digits;
 }
 
 
