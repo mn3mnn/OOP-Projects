@@ -177,20 +177,70 @@ BigDecimalInt BigDecimalInt::operator= (BigDecimalInt anotherDec){
 }
 
 
+//-------------------------------------------------------------------------------------------------------------------//
+
+
 bool BigDecimalInt::operator< (BigDecimalInt anotherDec){
-    return true;
+	if (digits.size() < anotherDec.digits.size()) {
+        return true;
+    }
+	else if (digits.size() == anotherDec.digits.size()) {
+        int COMP = digits.compare(anotherDec.digits);
+        if (COMP == 0) {
+            return false;   //strings are uqual
+        }
+	    else if (COMP < 0) {
+            return true;   
+        }
+		else if (COMP > 0){
+            return false;   //string 1 is bigger
+        }
+	}	
+    // else if () {
+	// 	"for - and +"
+	// }
+    return false;
 }
+
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 
 bool BigDecimalInt::operator> (BigDecimalInt anotherDec){
-    return true;
+	if (digits.size() > anotherDec.digits.size()) {
+        return true;
+    }
+	else if (digits.size() == anotherDec.digits.size()) {
+        int COMP = digits.compare(anotherDec.digits);
+        if (COMP == 0) {
+            return false;   //strings are uqual
+        }
+	    else if (COMP < 0) {
+            return false;   //string 1 is smaller
+        }
+		else if (COMP > 0){
+            return true;   
+        }
+	}	
+    // else if () {
+	// 	"for - and +"
+	// }
+    return false;
 }
+
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 
 bool BigDecimalInt::operator== (BigDecimalInt anotherDec){
-    return true;
+    if (strcmp(anotherDec.digits.c_str(), digits.c_str()) == 0) {
+        return true;
+    }
+	else {
+		return false;
+	}
+    return false;
 }
-
 
 
 //-------------------------------------------------------------------------------------------------------------------//
@@ -199,6 +249,9 @@ bool BigDecimalInt::operator== (BigDecimalInt anotherDec){
 int BigDecimalInt::size() {
     return digits.size();
 }
+
+
+//-------------------------------------------------------------------------------------------------------------------//
 
 
 int BigDecimalInt::sign() {
