@@ -251,7 +251,7 @@ BigDecimalInt BigDecimalInt::operator= (BigDecimalInt anotherDec){
 
 bool BigDecimalInt::operator> (BigDecimalInt anotherDec){
     // +ve and +ve
-    if (is_positive(digits) && is_positive(anotherDec.digits){
+    if (is_positive(digits) && is_positive(anotherDec.digits)){
         if (digits.size() > anotherDec.digits.size()) {
             return true;
         }
@@ -269,22 +269,30 @@ bool BigDecimalInt::operator> (BigDecimalInt anotherDec){
         }
     }
         // -ve and -ve
-            else if(!is_positive(digits) && !is_positive(anotherDec.digits)) {
+            else if(!is_positive(digits) && !is_positive(anotherDec.digits)) {  // greater than
         // remove -ve sign
         digits.erase(0, 1);
         anotherDec.digits.erase(0, 1);
         if (digits.size() > anotherDec.digits.size()) {
+            digits.insert(0,1,'-');
             return false;
+        }
+        else if(digits.size() < anotherDec.digits.size()){
+            digits.insert(0,1,'-');
+            return true;
         }
         else if (digits.size() == anotherDec.digits.size()) {
             int COMP = digits.compare(anotherDec.digits);
             if (COMP == 0) {        //===
+                digits.insert(0,1,'-');
                 return false;
             }
             else if (COMP < 0) {    // 1 is smaller "-ve and -ve"
+                digits.insert(0,1,'-');
                 return true;
             }
-            else if (COMP > 0){     // 2 is smaller "-ve and -ve"
+            else if (COMP > 0) {     // 2 is smaller "-ve and -ve"
+                digits.insert(0,1,'-');
                 return false;
             }
         }
@@ -307,19 +315,19 @@ bool BigDecimalInt::operator> (BigDecimalInt anotherDec){
 
 bool BigDecimalInt::operator< (BigDecimalInt anotherDec){
     // +ve and +ve
-    if (is_positive(digits) && is_positive(anotherDec.digits){
+    if (is_positive(digits) && is_positive(anotherDec.digits)){
         if (digits.size() < anotherDec.digits.size()) {
             return true;
         }
         else if (digits.size() == anotherDec.digits.size()) {
             int COMP = digits.compare(anotherDec.digits);
             if (COMP == 0) {
-                return false;   //===
+                return false;       // ===
             }
             else if (COMP < 0) {    // 1 is smaller
                 return true;
             }
-            else if (COMP > 0){
+            else if (COMP > 0) {
                 return false;        // 2 is smaller
             }
         }
@@ -330,18 +338,26 @@ bool BigDecimalInt::operator< (BigDecimalInt anotherDec){
         digits.erase(0, 1);
         anotherDec.digits.erase(0, 1);
         if (digits.size() > anotherDec.digits.size()) {
+            digits.insert(0,1,'-');
+            return true;
+        }
+        else if(digits.size() < anotherDec.digits.size()){
+            digits.insert(0,1,'-');
             return false;
         }
         else if (digits.size() == anotherDec.digits.size()) {
             int COMP = digits.compare(anotherDec.digits);
             if (COMP == 0) {        //===
+                digits.insert(0,1,'-');
                 return false;
             }
             else if (COMP < 0) {    // 1 is smaller "-ve and -ve"
+                digits.insert(0,1,'-');
                 return false;
             }
-            else if (COMP > 0){
-                return true;       // 2 is smaller "-ve and -ve"
+            else if (COMP > 0){ // 2 is smaller "-ve and -ve"
+                digits.insert(0,1,'-');
+                return true;
             }
         }
     }
