@@ -1,3 +1,4 @@
+
 #include "BigDecimalInt.h"
 
 //-------------------------------------------------------------------------------------------------------------------//
@@ -143,8 +144,8 @@ BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
         // add the two nums
         anotherDec = pos_plus_pos(anotherDec);
     }
-    
-    // if negative + negative
+
+        // if negative + negative
     else if(!is_positive(digits) && !is_positive(anotherDec.digits)){
         // remove -ve sign
         digits.erase(0, 1);
@@ -157,7 +158,7 @@ BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
         digits.insert(0, 1, '-');
     }
 
-    // if we add numbers with different signs
+        // if we add numbers with different signs
     else if (is_positive(digits) && !is_positive(anotherDec.digits)){
         // anotherDec.digits = the difference between the two nums
         // add the sign of the greater number (abs value)  to the result (anotherDec.digits)
@@ -169,7 +170,7 @@ BigDecimalInt BigDecimalInt::operator+(BigDecimalInt anotherDec){
         }
     }
 
-    // if we add numbers with different signs
+        // if we add numbers with different signs
     else if (!is_positive(digits) && is_positive(anotherDec.digits)){
         // anotherDec.digits = the difference between the two nums
         // add the sign of the greater number to the result (anotherDec.digits)
@@ -205,19 +206,19 @@ BigDecimalInt BigDecimalInt::operator- (BigDecimalInt anotherDec){
             // get the difference between the 2 nums
             anotherDec = pos_minus_pos(anotherDec);
         }
-        // if smaller - greater
+            // if smaller - greater
         else{
             // get the difference between the 2 nums and add the -ve sign
             anotherDec = pos_minus_pos(anotherDec);
             anotherDec.digits.insert(0, 1, '-');
         }
     }
-    // if negative - negative
+        // if negative - negative
     else if(!is_positive(digits) && !is_positive(anotherDec.digits)){
         anotherDec.digits.erase(0, 1);
         anotherDec = *this + anotherDec;
     }
-    // if negative - pos
+        // if negative - pos
     else if (!is_positive(digits) && is_positive(anotherDec.digits)){
         // remove -ve sign, add it later
         // add the 2 nums and insert -ve sign
@@ -226,7 +227,7 @@ BigDecimalInt BigDecimalInt::operator- (BigDecimalInt anotherDec){
         anotherDec.digits.insert(0, 1, '-');
         digits.insert(0, 1, '-');
     }
-    // if pos - negative
+        // if pos - negative
     else if(is_positive(digits) && !is_positive(anotherDec.digits)){
         anotherDec.digits.erase(0, 1);
         anotherDec = pos_plus_pos(anotherDec);
@@ -245,13 +246,115 @@ BigDecimalInt BigDecimalInt::operator= (BigDecimalInt anotherDec){
 }
 
 
-bool BigDecimalInt::operator< (BigDecimalInt anotherDec){
-    return true;
-}
+//-------------------------------------------------------------------------------------------------------------------//
 
 
 bool BigDecimalInt::operator> (BigDecimalInt anotherDec){
-    return true;
+    // +ve and +ve
+    if (is_positive(digits) && is_positive(anotherDec.digits){
+        if (digits.size() > anotherDec.digits.size()) {
+            return true;
+        }
+        else if (digits.size() == anotherDec.digits.size()) {
+            int COMP = digits.compare(anotherDec.digits);
+            if (COMP == 0) {
+                return false;       //===
+            }
+            else if (COMP < 0) {
+                return false;       // 1 is smaller
+            }
+            else if (COMP > 0){     // 2 is smaller
+                return true;
+            }
+        }
+    }
+        // -ve and -ve
+            else if(!is_positive(digits) && !is_positive(anotherDec.digits)) {
+        // remove -ve sign
+        digits.erase(0, 1);
+        anotherDec.digits.erase(0, 1);
+        if (digits.size() > anotherDec.digits.size()) {
+            return false;
+        }
+        else if (digits.size() == anotherDec.digits.size()) {
+            int COMP = digits.compare(anotherDec.digits);
+            if (COMP == 0) {        //===
+                return false;
+            }
+            else if (COMP < 0) {    // 1 is smaller "-ve and -ve"
+                return true;
+            }
+            else if (COMP > 0){     // 2 is smaller "-ve and -ve"
+                return false;
+            }
+        }
+    }
+        // -ve and +ve
+    else if (!is_positive(digits) && is_positive(anotherDec.digits)) {
+        //num1 is -ve
+        return false;
+    }
+    else if (is_positive(digits) && !is_positive(anotherDec.digits)) {
+        //num2 is -ve
+        return true;
+    }
+    return false;
+}
+
+
+//-------------------------------------------------------------------------------------------------------------------//
+
+
+bool BigDecimalInt::operator< (BigDecimalInt anotherDec){
+    // +ve and +ve
+    if (is_positive(digits) && is_positive(anotherDec.digits){
+        if (digits.size() < anotherDec.digits.size()) {
+            return true;
+        }
+        else if (digits.size() == anotherDec.digits.size()) {
+            int COMP = digits.compare(anotherDec.digits);
+            if (COMP == 0) {
+                return false;   //===
+            }
+            else if (COMP < 0) {    // 1 is smaller
+                return true;
+            }
+            else if (COMP > 0){
+                return false;        // 2 is smaller
+            }
+        }
+    }
+        // -ve and -ve
+            else if(!is_positive(digits) && !is_positive(anotherDec.digits)) {
+        // remove -ve sign
+        digits.erase(0, 1);
+        anotherDec.digits.erase(0, 1);
+        if (digits.size() > anotherDec.digits.size()) {
+            return false;
+        }
+        else if (digits.size() == anotherDec.digits.size()) {
+            int COMP = digits.compare(anotherDec.digits);
+            if (COMP == 0) {        //===
+                return false;
+            }
+            else if (COMP < 0) {    // 1 is smaller "-ve and -ve"
+                return false;
+            }
+            else if (COMP > 0){
+                return true;       // 2 is smaller "-ve and -ve"
+            }
+        }
+    }
+        // -ve and +ve
+    else if (!is_positive(digits) && is_positive(anotherDec.digits)) {
+        //num1 is -ve
+        return true;
+    }
+    else if (is_positive(digits) && !is_positive(anotherDec.digits)) {
+        //num2 is -ve
+        return false;
+    }
+    return false;
 }
 
 
@@ -259,9 +362,11 @@ bool BigDecimalInt::operator> (BigDecimalInt anotherDec){
 
 
 bool BigDecimalInt::operator== (BigDecimalInt anotherDec){
-    return true;
+    if (strcmp(anotherDec.digits.c_str(), digits.c_str()) == 0) {
+        return true;
+    }
+    return false;
 }
-
 
 
 //-------------------------------------------------------------------------------------------------------------------//
@@ -273,8 +378,15 @@ int BigDecimalInt::size() {
 }
 
 
-int BigDecimalInt::sign() {
-    return 0;
-}
+//-------------------------------------------------------------------------------------------------------------------//
 
+
+string BigDecimalInt::sign(){
+    if(this->digits[0] == '-'){
+        return "-";
+    }
+    else {
+        return "+";
+    }
+}
 
