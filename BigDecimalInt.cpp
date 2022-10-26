@@ -81,7 +81,7 @@ BigDecimalInt BigDecimalInt::pos_minus_pos(BigDecimalInt anotherDec){
     }
 
     // make anotherDec.digits = the greater number (the result)
-    //------------------------------------------------------------------------------------------===============
+    //-----------------------------------------------------------------------------------------------------------
     if (anotherDec < *this){
         swap(tmp_dig,anotherDec.digits);
     }
