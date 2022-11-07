@@ -14,7 +14,7 @@ using namespace std;
 RandomPlayer::RandomPlayer (char symbol):Player(symbol)
 {
     this->name = "Random Computer Player";
-    cout << "My names is " << name << endl;
+    cout << endl << "My names is " << name << endl;
 }
 
 // Generate a random move

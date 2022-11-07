@@ -12,9 +12,9 @@ void GameManager::run() {
     int x, y, choice;
     Player* players[2];
     players[0] = new Player (1, 'x');
-    cout << "Press 1 if you want to play with random player (easy)\n";
+    cout << "\nPress 1 if you want to play with random player (easy)\n";
     cout << "Press 2 for Computer player (hard)\n";
-    cout << "Press any other key for player 2: ";
+    cout << "Press any other key for player 2:\n ";
     cin >> choice;
     if (choice == 1){
         //Player pointer points to child
@@ -36,11 +36,11 @@ void GameManager::run() {
             }
             x_o.display_board();
             if (x_o.is_winner()){
-                cout  << players[i]->to_string() << " wins\n";
+                cout  << '\n' << players[i]->to_string() << " wins\n";
                 return;
             }
             if (x_o.is_draw()){
-                cout << "Draw!\n";
+                cout << "\nDraw!\n";
                 return;
             }
         }

@@ -50,6 +50,7 @@ void Board::undo_move(int x, int y){
 // Display the board_ptr and the pieces on it
 void Board::display_board() {
     int n = 0;
+    cout << endl;
    for (int i: {0,1,2}) {
       cout << "\n| ";
       for (int j: {0,1,2}) {
