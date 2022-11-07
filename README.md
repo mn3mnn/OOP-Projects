@@ -1,4 +1,4 @@
-# XO_Game
+# TicTacToe_Game
 
 ## Tic Tac Toe game using classes and AI (minimax algorithm)
 
