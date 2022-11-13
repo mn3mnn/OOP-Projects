@@ -1,5 +1,5 @@
-//
-// Created by AbdelMonem Tarek on 11/7/2022.
+//// This class represents AI computer player
+// Created by Monem on 11/7/2022.
 //
 
 #include "XO_Classes.hpp"
@@ -18,7 +18,6 @@ void ComputerPlayer::get_move(int &x, int &y) {
     // get Computer's best move using minimax algo
     get_best_move(x, y);
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -63,7 +62,6 @@ int ComputerPlayer::minimax(int depth, bool isMaximizing){
                 }
             }
         }
-
         return best_score;
     }
 
@@ -84,12 +82,9 @@ int ComputerPlayer::minimax(int depth, bool isMaximizing){
                 }
             }
         }
-
         return best_score;
     }
-
 }
-
 
 
 void ComputerPlayer::get_best_move(int& x, int& y){
@@ -97,7 +92,6 @@ void ComputerPlayer::get_best_move(int& x, int& y){
     int best_score = -1000;
 
     // Traverse all empty cells, calculate score for each one, choose the max score
-
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
             if (curr_board->is_empty_pos(i, j)){
@@ -112,7 +106,6 @@ void ComputerPlayer::get_best_move(int& x, int& y){
                     x = i;
                     y = j;
                 }
-
             }
         }
     }

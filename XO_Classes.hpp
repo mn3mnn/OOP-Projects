@@ -3,7 +3,7 @@
 // Date:    10/10/2022
 // Version: 1
 
-// Contributor: AbdelMonem Tarek
+// Contributor: Monem Tarek
 // Date: 7/11/2022
 
 #ifndef _XO_CLASSES_H
@@ -14,7 +14,6 @@ using namespace std;
 
 // This class represents a 3 x 3 board_ptr
 // used in X_O game
-
 class Board {
 protected:
    char board[3][3] = {{0}};
@@ -101,7 +100,7 @@ class ComputerPlayer: public Player {
     Board * curr_board;
     // minimax algo to return best score for a single move
     int minimax(int depth, bool isMaximizing);
-    // make x and y equal to position of the highest score of all empty cells
+    // make x and y equal to position of the best move
     void get_best_move(int& x, int& y);
 
 public:

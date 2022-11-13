@@ -4,7 +4,7 @@
 // Version: 1
 
 
-// Contributor: AbdelMonem Tarek
+// Contributor: Monem Tarek
 // Date: 7/11/2022
 
 #include <iostream>
@@ -51,15 +51,15 @@ void Board::undo_move(int x, int y){
 void Board::display_board() {
     int n = 0;
     cout << endl;
-   for (int i: {0,1,2}) {
+    for (int i: {0,1,2}) {
       cout << "\n| ";
       for (int j: {0,1,2}) {
          cout << '(' << n++ << ')';
          cout << setw(3) << board [i][j] << " |";
       }
       cout << "\n--------------------------";
-   }
-   cout << endl;
+    }
+    cout << endl;
 }
 
 // Returns true if there is any winner
