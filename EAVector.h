@@ -1,10 +1,11 @@
 //
-// Created by DELL on 12/16/2022.
+// Created by DELL on 12/15/2022.
 //
 
-#ifndef EAVECTOR_EAVECTOR_H
-#define EAVECTOR_EAVECTOR_H
+/// DO NOT COMPILE THE .CPP FILE, only the main and this .h file
 
+#ifndef VECTOR_EAVECTOR_H
+#define VECTOR_EAVECTOR_H
 
 #include <iterator>
 #include <iostream>
@@ -45,14 +46,14 @@ public:
     void erase(iterator pos1, iterator pos2);
     void clear();
     // Insert item at iterator, Throw exception if invalid
-    void insert(iterator itr, T val);
+    void insert(iterator pos, T val);
     iterator begin() const;	// Return an iterator
     iterator end() const;	// Return an iterator
 
     /// Comparison operations
-    bool operator==(const EAVector<T>&);
+    bool operator==(const EAVector<T>& other);
     // Compares item by item, Return true if first different item in this is < in other
-    bool operator< (const EAVector<T>&);
+    bool operator< (const EAVector<T>& other);
 
     /// Capacity operations
     int size() const;     // Return current size of vec
@@ -110,8 +111,6 @@ private:
 };
 
 
-
 #include "EAVector.cpp"
 
-
-#endif //EAVECTOR_EAVECTOR_H
+#endif //VECTOR_EAVECTOR_H

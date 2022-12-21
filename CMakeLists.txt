@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
-project(EAVector)
+project(Vector)
 
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories(.)
-
-add_executable(EAVector
-        EAVector.h
-        main.cpp)
+add_executable(Vector main.cpp EAVector.h)

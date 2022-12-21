@@ -1,5 +1,5 @@
 //
-// Created by DELL on 12/16/2022.
+// Created by DELL on 12/15/2022.
 //
 
 #include "EAVector.h"
@@ -25,7 +25,7 @@ EAVector<T>::EAVector(T *arr, int n) : capacity_(n * 2), size_(0) {
             push_back(arr[i]);
         }
     }
-        /// if any exception caught throw it and make the vector empty
+    /// if any exception caught throw it and make the vector empty
     catch (...){
         delete[] arr_;
         arr_ = new T[capacity_];
@@ -81,12 +81,10 @@ EAVector<T> &EAVector<T>::operator=(EAVector<T> &&other) {
 // move constructor
 template<class T>
 EAVector<T>::EAVector(EAVector<T> &&other) : capacity_(std::move(other.capacity_)),
-                                             size_(std::move(other.size_)),
-                                             arr_(std::move(other.arr_)){
+                                            size_(std::move(other.size_)),
+                                            arr_(std::move(other.arr_)){
 
 }
-
-
 
 
 template<class T>
@@ -122,9 +120,6 @@ const T &EAVector<T>::operator[](int index) const {
 
 }
 
-
-
-
 // push item to the end of vector, increase the size_ by 1, and call resize() if needed
 template<class T>
 int EAVector<T>::push_back(T item) {
@@ -143,55 +138,82 @@ T EAVector<T>::pop_back() {
         throw range_error("Empty Vector !\n");
     }else {
         T val = arr_[size_ - 1];
-        // destruct the last item in the vector
-        /////////////////////////////////////////////////////////////////////
-        arr_[size_ - 1].~T();
-        --size_;
+        // destruct the last element
+        arr_[--size_].~T();
         return val;
     }
 
 }
 
+// if pos is equal to end(), erase the last element
 template<class T>
 void EAVector<T>::erase(iterator pos) {
-    if (pos >= begin() && pos <= end()){
-        EAVector<T>::erase(pos, pos + 1);
+    if (pos >= begin() && pos < end()) {
+        iterator copy_itr = pos;
+        while (pos != (end() - 1)) { // copies elements one position left
+            *copy_itr++ = *++pos;
+        }
+        // then pop the last one
+        pop_back();
+    }
+    // if pos is = end(),it erases the last element
+    else if (pos == end()){
+        pop_back();
     }
     else{
         throw range_error("index out of range !\n");
     }
-
 }
 
-///////////////////////////////////////////////////////////////////////////////
+// pos2 NOT included
 template<class T>
 void EAVector<T>::erase(iterator pos1, iterator pos2) {
-    if (pos1 >= begin() && pos2 <= end() /*    */ && pos1 < pos2){
-
-        ////// CODE
-
+    if (pos1 >= begin() && pos2 <= end() && pos1 < pos2){
+        for (iterator it = pos1; it < pos2; ++it) {
+            erase(pos1);
+        }
     }
     else{
         throw invalid_argument("index out of range!!\n");
     }
 }
 
+
 template<class T>
-void EAVector<T>::clear() {
-    auto sz = size_;
-    for (int i = 0; i < sz; ++i) {
-        pop_back();
+void EAVector<T>::insert(iterator pos, T val) {
+    if (pos >= begin() && pos < end() - 1) {
+        // push back the val to the end
+        push_back(val);
+        // swap every pair of elements from the end to the pos
+        iterator it = end() - 1;
+        while (it > pos) {
+            iterator prev_it = it - 1;
+            swap(*it, *prev_it);
+            --it;
+        }
+    }
+    else if(pos == end() - 1 || pos == end()){
+        push_back(val);
+    }
+    else{
+        throw range_error("index out of range !\n");
     }
 }
 
-// should be const
+
+template<class T>
+void EAVector<T>::clear() {
+    erase(begin(), end());
+}
+
+
 template<class T>
 typename EAVector<T>::iterator EAVector<T>::begin() const {
     // return iterator points to the first element
     return iterator(arr_);
 }
 
-// should be const
+
 template<class T>
 typename EAVector<T>::iterator EAVector<T>::end() const {
     // return iterator points to index of the last element + 1
@@ -209,7 +231,7 @@ int EAVector<T>::capacity() const {
     return capacity_;
 }
 
-// allocate new array with doubled capacity
+// allocates new array with doubled capacity
 // return the new capacity
 template<class T>
 int EAVector<T>::resize() {
@@ -221,7 +243,7 @@ int EAVector<T>::resize() {
 
     std::swap(size_, vec_new.size_);
     std::swap(capacity_, vec_new.capacity_);
-//    delete[] arr_;
+    delete[] arr_;
     std::swap(arr_, vec_new.arr_);
     return capacity_;
 }
@@ -231,4 +253,29 @@ bool EAVector<T>::empty() {
     return size_ == 0;
 }
 
+
+template<class T>
+bool EAVector<T>::operator==(const EAVector<T> & other) {
+    if (size_ != other.size_){
+        return false;
+    }
+    for (int i = 0; i < size_; ++i) {
+        if (arr_[i] != other.arr_[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
+// Compares item by item
+// Return true if first different item in this is < in other
+template<class T>
+bool EAVector<T>::operator<(const EAVector<T> &other) {
+    for (int i = 0; i < size_ && i < other.size_; ++i) {
+        if (arr_[i] >= other.arr_[i]){
+            return false;
+        }
+    }
+    return true;
+}
 
