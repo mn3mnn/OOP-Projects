@@ -23,7 +23,7 @@ public:
     // iterator' constructor takes a pointer to an element in the vector
     struct iterator;
 
-    /// Constructors and Big 4
+    /// Constructors and Big 5
     EAVector(int cap);
     EAVector(T* arr, int n);
     EAVector(const EAVector<T> & other);

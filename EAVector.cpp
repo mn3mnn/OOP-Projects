@@ -272,10 +272,13 @@ bool EAVector<T>::operator==(const EAVector<T> & other) {
 template<class T>
 bool EAVector<T>::operator<(const EAVector<T> &other) {
     for (int i = 0; i < size_ && i < other.size_; ++i) {
-        if (arr_[i] >= other.arr_[i]){
+        if (arr_[i] < other.arr_[i]){
+            return true;
+        }
+        else if(arr_[i] > other.arr_[i]){
             return false;
         }
     }
-    return true;
+    return false;
 }
 
