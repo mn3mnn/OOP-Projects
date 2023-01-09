@@ -1,6 +1,6 @@
-# EAVector
+# EA Vector 
 
-## Vector class using Iterators, Template, and Exceptions handling
+## Implement stl' vector class using: **Iterators**, **Template**, and **Exception handling**
 
 - header file:
 
