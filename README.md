@@ -1,6 +1,6 @@
 # Array-Class
 
-### std::array class using **Templates** and **Exception handling**. 
+### Implementation of STL' array class using **Templates** and **Exception handling**. 
 
 header: 
 
